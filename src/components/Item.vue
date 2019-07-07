@@ -1,0 +1,42 @@
+
+<template>
+  <div class="item" v-bind:class="{'completed':todo.completed}">
+    <input type="checkbox" v-on:change="changeCompletionState" />
+    <p>{{ todo.name }}</p>
+    <button class="remove-btn">delete</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "item",
+  props: ["todo"],
+  methods: {
+    changeCompletionState() {
+      this.todo.completed = !this.todo.completed;
+    }
+  }
+};
+</script>
+
+<style scoped>
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  background: #f6f6f6;
+}
+p {
+  flex: 1;
+  padding: 0 6px;
+}
+.completed {
+  opacity: 0.4;
+}
+.remove-btn {
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+</style>
