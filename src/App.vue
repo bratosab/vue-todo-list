@@ -1,15 +1,21 @@
 <template>
   <div id="app">
+    <TodoHeader />
+    <Add />
     <List v-bind:todos="todos" v-on:remove-item="removeItem" />
   </div>
 </template>
 
 <script>
+import TodoHeader from "./components/layout/TodoHeader";
+import Add from "./components/Add";
 import List from "./components/List";
 
 export default {
   name: "app",
   components: {
+    TodoHeader,
+    Add,
     List
   },
   data() {
