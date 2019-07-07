@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <TodoHeader />
-    <Add />
-    <List v-bind:todos="todos" v-on:remove-item="removeItem" />
+    <Add v-on:add-item="addItem" />
+    <List v-bind:todos="todoItems" v-on:remove-item="removeItem" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      todos: [
+      todoItems: [
         {
           id: 1,
           name: "Go shopping",
@@ -41,7 +41,10 @@ export default {
   },
   methods: {
     removeItem(id) {
-      this.todos = this.todos.filter(todo => todo.id !== id);
+      this.todoItems = this.todoItems.filter(todo => todo.id !== id);
+    },
+    addItem(newItem) {
+      this.todoItems = [...this.todoItems, newItem];
     }
   }
 };
@@ -57,5 +60,16 @@ export default {
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+}
+
+.btn {
+  background: #666666;
+  color: #ffffff;
+  border: none;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #555555;
 }
 </style>

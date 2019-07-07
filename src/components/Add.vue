@@ -1,15 +1,36 @@
 <template>
   <div>
-    <form>
-      <input type="text" name="title" placeholder="New item..." />
-      <input type="submit" value="Add" class="add-btn" />
+    <form @submit="addItem">
+      <input type="text" name="name" v-model="name" placeholder="New item..." />
+      <input type="submit" value="Add item" class="btn" />
     </form>
   </div>
 </template>
 
 <script>
+import uuid from "uuid";
+
 export default {
-  name: "Add"
+  name: "Add",
+  data() {
+    return {
+      name: ""
+    };
+  },
+  methods: {
+    addItem(e) {
+      e.preventDefault();
+      const newItem = {
+        id: uuid.v4(),
+        name: this.name,
+        completed: false
+      };
+
+      this.$emit("add-item", newItem);
+
+      this.name = "";
+    }
+  }
 };
 </script>
 
@@ -17,11 +38,11 @@ export default {
 form {
   display: flex;
 }
+
 input[type="text"] {
   flex: 1;
-  padding: 4px;
 }
 input[type="submit"] {
-  padding: 4px;
+  width: 80px;
 }
 </style>
