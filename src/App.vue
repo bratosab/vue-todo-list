@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <List v-bind:todos="todos" />
+    <List v-bind:todos="todos" v-on:remove-item="removeItem" />
   </div>
 </template>
 
@@ -32,6 +32,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    removeItem(id) {
+      this.todos = this.todos.filter(todo => todo.id !== id);
+    }
   }
 };
 </script>
