@@ -39,7 +39,7 @@ export default {
           title: name,
           completed
         })
-        .then(res => (this.todoItems = [...this.todoItems, res.data]))
+        .then(res => (this.todoItems = [...this.todoItems, {...res.data, name: res.data.title}]))
         .catch(err => console.error(err));
     }
   },

@@ -1,16 +1,19 @@
 
 <template>
   <div class="item" v-bind:class="{'completed':todo.completed}">
-    <input type="checkbox" v-on:change="changeCompletionState" />
+    <Checkbox v-bind:isChecked="todo.completed" v-on:check="changeCompletionState" />
     <p>{{ todo.name }}</p>
     <button @click="$emit('remove-item', todo.id)" class="remove-btn">delete</button>
   </div>
 </template>
 
 <script>
+import Checkbox from "./shared/Checkbox";
+
 export default {
   name: "item",
   props: ["todo"],
+  components: { Checkbox },
   methods: {
     changeCompletionState() {
       this.todo.completed = !this.todo.completed;
