@@ -1,61 +1,20 @@
 <template>
   <div id="app">
     <TodoHeader />
-    <Add v-on:add-item="addItem" />
-    <List v-bind:todos="todoItems" v-on:remove-item="removeItem" />
+    <router-view />
   </div>
 </template>
 
 <script>
 import TodoHeader from "./components/layout/TodoHeader";
-import Add from "./components/Add";
-import List from "./components/List";
-import axios from "axios";
-
 export default {
   name: "app",
   components: {
-    TodoHeader,
-    Add,
-    List
-  },
-  data() {
-    return {
-      todoItems: []
-    };
-  },
-  methods: {
-    removeItem(id) {
-      axios
-        .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then((this.todoItems = this.todoItems.filter(todo => todo.id !== id)))
-        .catch(err => console.error(err));
-    },
-    addItem(newItem) {
-      const { name, completed } = newItem;
-
-      axios
-        .post("https://jsonplaceholder.typicode.com/todos", {
-          title: name,
-          completed
-        })
-        .then(res => (this.todoItems = [...this.todoItems, {...res.data, name: res.data.title}]))
-        .catch(err => console.error(err));
-    }
-  },
-  created() {
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-      .then(
-        res =>
-          (this.todoItems = res.data.map(d => {
-            return { ...d, name: d.title };
-          }))
-      )
-      .catch(err => console.error(err));
+    TodoHeader
   }
 };
 </script>
+
 
 <style>
 * {
